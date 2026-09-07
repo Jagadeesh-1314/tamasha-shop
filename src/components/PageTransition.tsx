@@ -8,6 +8,7 @@ import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Footer from "./Footer";
 import Header from "./Header";
+import NotFound from "./NotFound";
 
 function PageTransition() {
     const location = useLocation();
@@ -23,6 +24,7 @@ function PageTransition() {
                 <Route path="/" element={<Products />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
         </div>
