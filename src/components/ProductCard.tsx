@@ -76,13 +76,12 @@ function ProductCard({ product }: ProductCardProps) {
                         <div className="inline-flex items-center gap-1 rounded-full bg-[#f3c969]/25 px-2 py-0.5 font-bold text-[#8d6b13] border border-[#f3c969]/40">
                             <Star size={12} className="fill-[#d39d1b] text-[#d39d1b]" />
                             <span>{product.rating.rate.toFixed(1)}</span>
-                            <span className="text-[#8d6b13]/70 font-normal">({product.rating.count})</span>
                         </div>
 
                         {!isOutOfStock && (
                             <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
                                 <span className="h-1.5 w-1.5 rounded-full bg-[#4b9b73] animate-pulse" />
-                                {product.stock} available
+                                {product.rating.count} available
                             </span>
                         )}
                     </div>
