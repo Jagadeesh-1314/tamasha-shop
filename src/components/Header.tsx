@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../app/store";
 
 interface HeaderProps {
-  onCategoriesClick?: () => void;
+  onSearchClick?: () => void;
 }
 
-function Header({ onCategoriesClick }: HeaderProps) {
+function Header({ onSearchClick }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const cartItems = useSelector(
@@ -26,13 +26,9 @@ function Header({ onCategoriesClick }: HeaderProps) {
   const handleCategoriesClick = () => {
     setMobileMenuOpen(false);
 
-    if (onCategoriesClick) {
-      onCategoriesClick();
-    } else {
-      document
-        .getElementById("products")
-        ?.scrollIntoView({ behavior: "smooth" });
-    }
+    document
+      .getElementById("products")
+      ?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -86,9 +82,7 @@ function Header({ onCategoriesClick }: HeaderProps) {
           <button
             type="button"
             onClick={() => {
-              document
-                .getElementById("products")
-                ?.scrollIntoView({ behavior: "smooth" });
+              onSearchClick?.();
             }}
             className="hidden h-10 w-10 items-center justify-center rounded-xl text-[#201d1a]/65 transition-all duration-200 hover:bg-[#201d1a]/5 hover:text-[#201d1a] active:scale-95 sm:flex"
             aria-label="Search products"

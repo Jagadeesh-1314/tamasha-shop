@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Search, X } from "lucide-react";
 
 interface SearchBarProps {
@@ -5,7 +6,8 @@ interface SearchBarProps {
   onChange: (value: string) => void;
 }
 
-const SearchBar = ({ value, onChange }: SearchBarProps) => {
+const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
+  ({ value, onChange }, ref) => {
   return (
     <div className="relative w-full">
       <Search
@@ -14,6 +16,7 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
       />
 
       <input
+        ref={ref}
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -32,6 +35,9 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
       )}
     </div>
   );
-};
+  }
+);
+
+SearchBar.displayName = "SearchBar";
 
 export default SearchBar;

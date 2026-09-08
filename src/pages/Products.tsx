@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RotateCcw, PackageSearch } from "lucide-react";
 
@@ -17,7 +17,11 @@ import {
 } from "../features/products/productSlice";
 import { fetchProducts } from "../services/productApi";
 
-function Products() {
+interface ProductsProps {
+    searchRequest: number;
+}
+
+function Products({ searchRequest }: ProductsProps) {
     const dispatch = useDispatch<AppDispatch>();
 
     const { items: products, status, error } = useSelector(
@@ -27,6 +31,7 @@ function Products() {
     const [search, setSearch] = useState("");
     const [category, setCategory] = useState("All");
     const [sort, setSort] = useState("default");
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
     const loadProducts = useCallback(async () => {
         dispatch(setLoading());
@@ -46,6 +51,15 @@ function Products() {
             loadProducts();
         }
     }, [status, loadProducts]);
+
+    useEffect(() => {
+        if (searchRequest > 0) {
+            document
+                .getElementById("products")
+                ?.scrollIntoView({ behavior: "smooth" });
+            searchInputRef.current?.focus();
+        }
+    }, [searchRequest]);
 
     const filteredProducts = useMemo(() => {
         let result = [...products];
@@ -135,6 +149,7 @@ function Products() {
                     {/* Filters */}
                     <div className="space-y-5 rounded-2xl border border-[#201d1a]/10 bg-white/45 p-4 sm:p-5">
                         <SearchBar
+                            ref={searchInputRef}
                             value={search}
                             onChange={setSearch}
                         />
